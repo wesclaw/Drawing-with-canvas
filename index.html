@@ -4,10 +4,15 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
   <title>Fun with canvas</title>
 </head>
 <body>
-  <input type="color" data-color="mainColor" id="color_input">
+  <div>
+    <input type="color" data-color="mainColor" id="color_input" class="color-picker">
+  <input type="range" class="size-input" id="size_brush" min="1">
+  </div>
+  
   <canvas id="canvas" width="800" height="800" data-color="mainColor"></canvas>
   <script src="app.js"></script>
 </body>

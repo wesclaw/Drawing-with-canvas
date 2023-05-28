@@ -1,0 +1,16 @@
+.color-picker{
+  width: 50vw;
+  height: 50px;
+}
+
+html{
+  overflow-x: hidden;
+}
+
+div{
+  display: flex;
+}
+
+.size-input{
+  width: 50vw;
+}

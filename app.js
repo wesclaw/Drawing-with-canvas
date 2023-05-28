@@ -1,40 +1,41 @@
 const canvas = document.getElementById('canvas')
-const context = canvas.getContext('2d')
+const c = canvas.getContext('2d')
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-canvas.style.border = '1px solid black'
+canvas.style.border = '5px solid black'
 
-context.lineJoin = 'round'
-context.lineCap = 'round'
-context.lineWidth = '20'
+let drawing = false;
 
-const color_input = document.getElementById('color_input')
+const size_brush = document.getElementById('size_brush')
+const color_picker = document.getElementById('color_input')
 
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-let hue = 0;
-
-function draw(e){
-  if(!isDrawing)return;
-  console.log(e)
-  context.strokeStyle = color_input.value
-  context.beginPath()
-  context.moveTo(lastX, lastY)
-  context.lineTo(e.offsetX, e.offsetY)
-  context.stroke()
-  lastX = e.offsetX
-  lastY = e.offsetY
-  // hue++
+function start(){
+  drawing = true
 }
 
+function end(){
+  drawing = false
+  c.beginPath()
+}
+
+
+function draw(e){
+  if(!drawing)return
+
+  const rect = canvas.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  c.lineWidth = size_brush.value
+  c.strokeStyle = color_picker.value
+  c.lineCap = 'round'
+  c.lineTo(x, y)
+  c.stroke()
+  c.beginPath()
+  c.moveTo(x, y)
+}
+
+canvas.addEventListener('mousedown', start)
+canvas.addEventListener('mouseup', end)
 canvas.addEventListener('mousemove', draw)
-
-canvas.addEventListener('mousedown', (e) => {
-  isDrawing = true;
-  [lastX, lastY] = [e.offsetX, e.offsetY]
-})
-
-
-canvas.addEventListener('mouseup', ()=> isDrawing = false)
-canvas.addEventListener('mouseout', ()=> isDrawing = false)

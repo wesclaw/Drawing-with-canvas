@@ -1,24 +1,26 @@
 const canvas = document.getElementById('canvas')
-const c = canvas.getContext('2d')
+const ctx = canvas.getContext('2d')
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
 canvas.style.border = '5px solid black'
 
-let drawing = false;
+let drawing = false
 
 const size_brush = document.getElementById('size_brush')
 const color_picker = document.getElementById('color_input')
 
+
 function start(){
   drawing = true
+  
 }
 
 function end(){
   drawing = false
-  c.beginPath()
+  ctx.beginPath()
 }
-
 
 function draw(e){
   if(!drawing)return
@@ -27,15 +29,17 @@ function draw(e){
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
-  c.lineWidth = size_brush.value
-  c.strokeStyle = color_picker.value
-  c.lineCap = 'round'
-  c.lineTo(x, y)
-  c.stroke()
-  c.beginPath()
-  c.moveTo(x, y)
+  ctx.lineWidth = size_brush.value
+  ctx.strokeStyle = color_picker.value
+  ctx.lineCap = 'round'
+  ctx.lineTo(x, y)
+  ctx.stroke()
+  ctx.beginPath()
+  ctx.moveTo(x, y)
 }
 
 canvas.addEventListener('mousedown', start)
-canvas.addEventListener('mouseup', end)
+
 canvas.addEventListener('mousemove', draw)
+
+canvas.addEventListener('mouseup', end)
